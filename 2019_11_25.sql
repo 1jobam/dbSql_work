@@ -194,7 +194,7 @@ SELECT ADD_MONTHS(TO_DATE('20191125', 'YYYYMMDD'), 5) NOW_AFTER5M
 FROM dual;
 
 --NEXT_DAY(date, weekday number(1~7))
-SELECT NEXT_DAY(SYSDATE, 5) --오늘 날짜(2019/11/25)일 이후 등장하는 첫번째 토요일
+SELECT NEXT_DAY(SYSDATE, 7) --오늘 날짜(2019/11/25)일 이후 등장하는 첫번째 토요일
 FROM dual;
 
 
