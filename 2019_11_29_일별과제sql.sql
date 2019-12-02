@@ -17,6 +17,8 @@ select * from countries;
 select * from regions;
 select * from locations;
 
+-- (row 9 - France, Denmark, Belgium 3개 국가에 속하는 locationts 정보는 미존재
+-- 나머지 5개중에 다수의 location 정보를 갖고 있는 국가가 존재한다.)
 SELECT a.region_id, a.region_name, b.country_name, c.city
 FROM regions a JOIN countries b ON a.region_id = b.region_id JOIN locations c ON b.country_id = c.country_id
 WHERE a.region_name = 'Europe';
@@ -54,8 +56,9 @@ select * from jobs;
 SELECT a.employee_id, concat(a.first_name, a.last_name) name, b.job_id, b.job_title
 FROM employees a JOIN jobs b ON a.job_id = b.job_id;
 
--- ( 실습 join 13 )
+-- ( 실습 join 13 ) 
 select * from employees;
 select * from jobs;
-SELECT a.manager_id mng_id, a.employee_id, concat(a.first_name, a.last_name) name, b.job_id, b.job_title
-FROM employees a JOIN jobs b ON a.job_id = b.job_id;
+
+SELECT a.manager_id mng_id, concat(c.first_name, c.last_name) mgr_name, a.employee_id, concat(a.first_name, a.last_name) name, b.job_id, b.job_title
+FROM employees a JOIN jobs b ON a.job_id = b.job_id JOIN employees c ON c.employee_id = a.manager_id;
