@@ -21,3 +21,10 @@ GROUP BY sido, sigungu)b
 WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
 ORDER BY Á¡¼ö desc)c;
+
+select*from tax;
+
+
+
+
+

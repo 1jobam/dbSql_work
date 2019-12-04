@@ -9,6 +9,7 @@ FROM
     TO_CHAR(sysdate, 'yyyy') this_yyyy
 FROM users;) a;
 
+
 -- GROUP FUNCTION
 -- 특정 컬럼이나, 표현을 기준으로 여러행의 값을 한행의 결과로 생성
 -- count - 건수, sum - 합계, avg - 평균, max - 최대값, min - 최소값

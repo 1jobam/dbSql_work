@@ -123,6 +123,16 @@ FROM cycle a RIGHT OUTER JOIN product b ON a.pid = b.pid AND a.cid = 1;
 select * from cycle;
 select * from product;
 select * from customer;
+
 --(ANSI 방식)
 SELECT b.pid, b.pnm, NVL(a.cid, 1) cid, NVL(c.cnm, 'brown') cnm, NVL(a.day, 0) day, NVL(a.cnt, 0) cnt 
 FROM cycle a RIGHT OUTER JOIN product b ON a.pid = b.pid AND a.cid = 1 LEFT OUTER JOIN customer c ON a.cid = c.cid ORDER BY b.pid desc;
+
+-- oracle 방식
+SELECT a.pid, a.pnm, a.cid, customer.cnm, a.day, a.cnt FROM
+(SELECT product.pid, product.pnm,
+        :cid cid, NVL(cycle.day, 0) day, NVL(cycle.cnt, 0) cnt
+        FROM cycle, product
+        WHERE cycle.cid(+) = :cid
+        AND cycle.pid(+) = product.pid) a, customer
+WHERE a.cid = customer.cid;

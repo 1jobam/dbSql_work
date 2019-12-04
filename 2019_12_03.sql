@@ -76,16 +76,20 @@ select * from fastfood where sigungu like '%서구%' AND gb like '맥도%';
 --해당 시도, 시군구별 프렌차이즈별 건수가 필요
 SELECT ROWNUM rn, sido, sigungu, 도시발전지수
 FROM
+
 (SELECT a.sido, a.sigungu, round(a.cnt/b.cnt, 1) 도시발전지수
 FROM
+
 (SELECT sido, sigungu, count(*) cnt --버거킹, KFC, 맥도날드 건수
 FROM fastfood
 WHERE gb IN ('KFC', '버거킹', '맥도날드')
 GROUP BY sido, sigungu)a,
+
 (SELECT sido, sigungu, count(*) cnt --롯데리아 건수
 FROM fastfood
 WHERE gb IN ('롯데리아')
 GROUP BY sido, sigungu)b
+
 WHERE a.sido = b.sido
 AND a.sigungu = b.sigungu
 ORDER BY 도시발전지수 desc) c;
