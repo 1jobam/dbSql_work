@@ -3,8 +3,9 @@
 -- 어떻게 하면 최상위글은 최신글 순(desc)으로 정렬하고, 답글은 순차(asc) 적으로 정렬 할 수 있을까?
 select * from board_test;
 
-SELECT seq, LPAD(' ', (LEVEL - 1) * 4) || title AS title
+SELECT seq, LPAD(' ', (LEVEL - 1) * 4) || title
 FROM board_test
-START WITH parent_seq IS NULL
+START WITH parent_seq is null
 CONNECT BY PRIOR seq = parent_seq
-ORDER SIBLINGS BY seq desc;
+ORDER SIBLINGS BY NVL(parent_seq, seq) desc; 
+

@@ -42,10 +42,9 @@ SELECT
     MIN(DECODE(d, 1, dt)) 일, MIN(DECODE(d, 2, dt)) 월, MIN(DECODE(d, 3, dt)) 화,
     MIN(DECODE(d, 4, dt)) 수, MIN(DECODE(d, 5, dt)) 목, MIN(DECODE(d, 6, dt)) 금, MIN(DECODE(d, 7, dt)) 토
 FROM
-    (SELECT 
+    (SELECT LEVEL, TRUNC((LEVEL-1)/7) m,
             TO_DATE(:yyyymm, 'YYYYMM') - (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') - 1) +(LEVEL -1) dt,
-            TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM') - (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') - 1) + (LEVEL - 1), 'D') d,
-            TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM') - (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') - 1) + (LEVEL), 'IW') iw
+            TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM') - (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') - 1) + (LEVEL - 1), 'D') d
     FROM dual
     CONNECT BY LEVEL <= (SELECT ldt - fdt + 1
                         FROM
@@ -57,9 +56,9 @@ FROM
                         TO_DATE(:yyyymm, 'YYYYMM') -
                         (TO_CHAR(TO_DATE(:yyyymm, 'YYYYMM'), 'D') - 1) fdt
                         
-                        FROM dual)))
-GROUP BY dt - (d - 1)
-ORDER BY dt - (d - 1);
+                        FROM dual)) )
+GROUP BY m
+ORDER BY m;
 
 -- 계층구조 시작
 SELECT dept_h.*, LEVEL, LPAD(' ', (LEVEL - 1) * 3) || deptnm
