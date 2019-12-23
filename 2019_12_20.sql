@@ -169,6 +169,8 @@ END;
 
 exec registdept_test(99, 'ddit_m', 'daejeon');
 
+select * from dept_test;
+
 
 
 
